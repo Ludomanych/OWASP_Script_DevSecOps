@@ -10,7 +10,6 @@ echo "Starting OWASP ZAP scan on $TARGET_URL..."
 # Run the ZAP Baseline Scan and save the results to the file without outputting to the console
 sudo docker run --rm -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t "$TARGET_URL" > "$OUTPUT_FILE" 2>&1
 
-# Extract counts directly from the output, ensuring clean formatting
 FAIL_NEW_COUNT=$(grep -o 'FAIL-NEW: [0-9]*' "$OUTPUT_FILE" | awk '{print $2}' | tr -d '[:space:]')
 FAIL_INPROG_COUNT=$(grep -o 'FAIL-INPROG: [0-9]*' "$OUTPUT_FILE" | awk '{print $2}' | tr -d '[:space:]')
 WARN_NEW_COUNT=$(grep -o 'WARN-NEW: [0-9]*' "$OUTPUT_FILE" | awk '{print $2}' | tr -d '[:space:]')
